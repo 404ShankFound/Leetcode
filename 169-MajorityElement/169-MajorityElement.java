@@ -1,4 +1,4 @@
-// Last updated: 21/01/2026, 18:39:48
+// Last updated: 21/01/2026, 18:43:05
 1class Solution {
 2    public int majorityElement(int[] nums) {
 3        int n=nums.length;
@@ -8,7 +8,7 @@
 7                if (nums[i]==nums[j])
 8                    count++;
 9            }
-10            if (count>(n/2))
+10            if (count>Math.floor(n/2))
 11                return nums[i];
 12        }
 13        return -1;
