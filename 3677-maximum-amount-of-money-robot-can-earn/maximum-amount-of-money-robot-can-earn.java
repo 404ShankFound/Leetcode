@@ -1,6 +1,11 @@
 class Solution {
     int m, n;
-    Integer[][][] memo;
+    Integer[][][] memo;  
+    
+    // Integer wrapper assumes defaut value null but int will assume zero
+    //null means not computed yet whereas using int will by default assume 0 
+    //so ambiguous that whether initialised by default or is computed as 0
+
     public int maximumAmount(int[][] coins) {
         m = coins.length;
         n = coins[0].length;
@@ -23,9 +28,10 @@ class Solution {
             solve(i+1, j, skips, coins),
             solve(i, j+1, skips, coins)
         );
-
         int ans = coins[i][j] + best;
 
+
+        //current is robber, so skip robber
         if (coins[i][j] < 0 && skips > 0) {
             int skipBest = Math.max(
                 solve(i+1, j, skips-1, coins),
