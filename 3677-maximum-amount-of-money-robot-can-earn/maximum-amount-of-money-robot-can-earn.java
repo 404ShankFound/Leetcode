@@ -26,7 +26,6 @@ class Solution {
 
         int ans = coins[i][j] + best;
 
-        // try skipping robber
         if (coins[i][j] < 0 && skips > 0) {
             int skipBest = Math.max(
                 solve(i+1, j, skips-1, coins),
