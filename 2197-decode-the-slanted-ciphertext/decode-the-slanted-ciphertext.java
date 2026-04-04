@@ -31,13 +31,17 @@ class Solution {
         }
 
         // Step 4: Remove trailing spaces
-        // return result.toString().stripTrailing();
+        // return result.toString().stripTrailing(); - faster 
 
-        int end = result.length() - 1;
-        while (end >= 0 && result.charAt(end) == ' ') {
-            end--;
-        }
+        // using this method elads to charAt() repeatedly and also manual loop
+        // but using library function internally optimized
 
-        return result.substring(0, end + 1);
+        // int end = result.length() - 1;
+        // while (end >= 0 && result.charAt(end) == ' ') {
+        //     end--;
+        // }
+        // return result.substring(0, end + 1);
+
+        return result.toString().stripTrailing();
     }
 }
