@@ -30,6 +30,14 @@ class Solution {
             }
         }
 
-    return result.toString().stripTrailing();
+        // Step 4: Remove trailing spaces
+        // return result.toString().stripTrailing();
+
+        int end = result.length() - 1;
+        while (end >= 0 && result.charAt(end) == ' ') {
+            end--;
+        }
+
+        return result.substring(0, end + 1);
     }
 }
