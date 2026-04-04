@@ -1,7 +1,7 @@
 class Solution {
     public String decodeCiphertext(String encodedText, int rows) {
         // Step 1: Edge case
-        if (rows == 1) return encodedText;
+        //if (rows == 1) return encodedText;
 
         int n = encodedText.length();
         int cols = n / rows;
