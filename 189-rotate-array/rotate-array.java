@@ -6,7 +6,7 @@
 //         for(int j = 0; j < k; j++){
 //             int temp = nums[n-1];
             
-//             for(int i = n-1; i > 0; i--){
+//             for(int i = n-1; i > 0; i--){    //here i starts from n-1 (R->L)
 //                 nums[i] = nums[i-1];
 //             }
             
