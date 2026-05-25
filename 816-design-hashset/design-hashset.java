@@ -26,7 +26,7 @@ class Bucket {
 class MyHashSet {
 
     Bucket[] buckets;
-    int size = 399;
+    int size = 199;
 
     public MyHashSet() {
         this.buckets = new Bucket[size];
