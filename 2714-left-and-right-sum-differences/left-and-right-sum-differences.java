@@ -1,15 +1,31 @@
-// class Solution {
-//     public int[] leftRightDifference(int[] nums) {
-//         int n = nums.length;
-//         left sum = 0;
-//         right sum = 0;
-//         for(int i=0; i<n; i++){
-            
-//         }
-//         Math.abs(right-left);
-//     }
-// }
+// /*
+class Solution {
+    public int[] leftRightDifference(int[] nums) {
+        int n = nums.length;
+        int leftsum = 0;
+        int rightsum = 0;
+        int[] result = new int[n];
+        for(int i=0; i<n; i++){
+            result[i]=0;
+        }        
+        for(int i=0; i<n; i++){
+            result[i]+=leftsum;
+            leftsum+=nums[i];
+        } 
+        for(int i=n-1; i>=0; i--){
+            result[i]-=rightsum;
+            rightsum+=nums[i];
+        }               
+        for(int i=0; i<n; i++){
+            result[i]=Math.abs(result[i]);
+        }
+        return result;
+    }
+}
+// */
 
+/*
+BRUTE FORCE:-
 class Solution {
     public int[] leftRightDifference(int[] nums) {
         int n = nums.length;
@@ -26,3 +42,4 @@ class Solution {
         return result;
     }
 }
+*/
