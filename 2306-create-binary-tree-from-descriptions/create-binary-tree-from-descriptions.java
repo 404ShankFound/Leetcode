@@ -40,11 +40,10 @@ class Solution {
             }
         }
 
-        TreeNode root = null;
         for(int key : map.keySet()){
             if(!childSet.contains(key))
-            root = map.get(key);
+                return map.get(key);
         }
-        return root;
+        return null;
     }
 }
