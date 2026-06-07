@@ -18,8 +18,8 @@ import java.util.*;
 class Solution {
     public TreeNode createBinaryTree(int[][] descrp) {
 
-        HashMap<Integer,TreeNode> map = new HashMap<>();
-        HashSet<Integer> childSet = new HashSet<>();
+        HashMap<Integer,TreeNode> map = new HashMap<>(descrp.length * 2);
+        HashSet<Integer> childSet = new HashSet<>(descrp.length);
 
         for(int[] d : descrp){
 
@@ -28,17 +28,17 @@ class Solution {
             int isleft=d[2];
             childSet.add(child);
 
-TreeNode parentNode =
+        TreeNode parentNode =
         map.computeIfAbsent(parent, k -> new TreeNode(k));
 
-TreeNode childNode =
+        TreeNode childNode =
         map.computeIfAbsent(child, k -> new TreeNode(k));
 
-if (isleft == 1) {
-    parentNode.left = childNode;
-} else {
-    parentNode.right = childNode;
-}
+        if (isleft == 1) {
+            parentNode.left = childNode;
+        } else {
+            parentNode.right = childNode;
+        }
         }
 
         for(int key : map.keySet()){
