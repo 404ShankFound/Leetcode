@@ -28,16 +28,17 @@ class Solution {
             int isleft=d[2];
             childSet.add(child);
 
-            map.putIfAbsent(parent,new TreeNode(parent));
-            //what if child node is also not already in the map?
-            map.putIfAbsent(child, new TreeNode(child));
+TreeNode parentNode =
+        map.computeIfAbsent(parent, k -> new TreeNode(k));
 
-            TreeNode x = map.get(parent);
-            if (isleft == 1) {
-                x.left = map.get(child);
-            } else {
-                x.right = map.get(child);
-            }
+TreeNode childNode =
+        map.computeIfAbsent(child, k -> new TreeNode(k));
+
+if (isleft == 1) {
+    parentNode.left = childNode;
+} else {
+    parentNode.right = childNode;
+}
         }
 
         for(int key : map.keySet()){
