@@ -9,13 +9,14 @@ class Solution {
             else if(nums[i]==pivot) eq++;
             else gt++;
         }
-        int lub=lt;
-        int eub=lt+eq;
+        int less = 0;
+        int equal = lt;
+        int greater = lt + eq;
         int arr[] = new int[n];
-        for(int i=0; i<n; i++){
-            if(nums[i]<pivot) {arr[lub-lt]=nums[i]; lt--;}
-            else if(nums[i]==pivot) {arr[eub-eq]=nums[i]; eq--;}
-            else {arr[n-gt]=nums[i]; gt--;}
+        for(int x : nums){
+            if(x < pivot) arr[less++] = x;
+            else if(x == pivot) arr[equal++] = x;
+            else arr[greater++] = x;
         }
         return arr;
     }
