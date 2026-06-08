@@ -1,3 +1,4 @@
+//Using XOR(Bit-Manipulation)
 class Solution {
     public int singleNumber(int[] nums) {
         int n=nums.length;
@@ -10,7 +11,7 @@ class Solution {
     }
 }
 
-/* BRUTE FORCE:
+/* BRUTE FORCE: BEATS 99.4%
 class Solution {
     public int singleNumber(int[] nums) {
         int n = nums.length;
