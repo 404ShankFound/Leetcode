@@ -2,63 +2,73 @@ import java.util.*;
 
 class Solution {
 
-    static class SparseTable {
-        int n, log;
-        int[][] maxTable;
-        int[][] minTable;
-        int[] lg;
+    static class SegmentTree {
+        int n;
+        int[] maxTree;
+        int[] minTree;
 
-        SparseTable(int[] nums) {
+        SegmentTree(int[] nums) {
             n = nums.length;
-
-            lg = new int[n + 1];
-            for (int i = 2; i <= n; i++) {
-                lg[i] = lg[i / 2] + 1;
-            }
-
-            log = lg[n] + 1;
-
-            maxTable = new int[log][n];
-            minTable = new int[log][n];
-
-            for (int i = 0; i < n; i++) {
-                maxTable[0][i] = nums[i];
-                minTable[0][i] = nums[i];
-            }
-
-            for (int j = 1; j < log; j++) {
-                int len = 1 << j;
-                int half = len >> 1;
-
-                for (int i = 0; i + len <= n; i++) {
-                    maxTable[j][i] = Math.max(
-                            maxTable[j - 1][i],
-                            maxTable[j - 1][i + half]
-                    );
-
-                    minTable[j][i] = Math.min(
-                            minTable[j - 1][i],
-                            minTable[j - 1][i + half]
-                    );
-                }
-            }
+            maxTree = new int[4 * n];
+            minTree = new int[4 * n];
+            build(1, 0, n - 1, nums);
         }
 
-        int queryMax(int l, int r) {
-            int j = lg[r - l + 1];
+        private void build(int node, int start, int end, int[] nums) {
+            if (start == end) {
+                maxTree[node] = nums[start];
+                minTree[node] = nums[start];
+                return;
+            }
+
+            int mid = start + (end - start) / 2;
+
+            build(node * 2, start, mid, nums);
+            build(node * 2 + 1, mid + 1, end, nums);
+
+            maxTree[node] = Math.max(maxTree[node * 2], maxTree[node * 2 + 1]);
+            minTree[node] = Math.min(minTree[node * 2], minTree[node * 2 + 1]);
+        }
+
+        int queryMax(int left, int right) {
+            return queryMax(1, 0, n - 1, left, right);
+        }
+
+        private int queryMax(int node, int start, int end, int left, int right) {
+            if (right < start || end < left) {
+                return Integer.MIN_VALUE;
+            }
+
+            if (left <= start && end <= right) {
+                return maxTree[node];
+            }
+
+            int mid = start + (end - start) / 2;
 
             return Math.max(
-                    maxTable[j][l],
-                    maxTable[j][r - (1 << j) + 1]
+                    queryMax(node * 2, start, mid, left, right),
+                    queryMax(node * 2 + 1, mid + 1, end, left, right)
             );
         }
 
-        int queryMin(int l, int r) {
-            int j = lg[r - l + 1];
+        int queryMin(int left, int right) {
+            return queryMin(1, 0, n - 1, left, right);
+        }
+
+        private int queryMin(int node, int start, int end, int left, int right) {
+            if (right < start || end < left) {
+                return Integer.MAX_VALUE;
+            }
+
+            if (left <= start && end <= right) {
+                return minTree[node];
+            }
+
+            int mid = start + (end - start) / 2;
 
             return Math.min(
-                    minTable[j][l],
-                    minTable[j][r - (1 << j) + 1]
+                    queryMin(node * 2, start, mid, left, right),
+                    queryMin(node * 2 + 1, mid + 1, end, left, right)
             );
         }
     }
@@ -66,13 +76,14 @@ class Solution {
     public long maxTotalValue(int[] nums, int k) {
         int n = nums.length;
 
-        SparseTable st = new SparseTable(nums);
+        SegmentTree st = new SegmentTree(nums);
 
+        // {value, l, r}
         PriorityQueue<long[]> pq = new PriorityQueue<>(
                 (a, b) -> Long.compare(b[0], a[0])
         );
 
-        // Start with largest value from each sequence
+        // Largest element of each sequence
         for (int l = 0; l < n; l++) {
             long val = (long) st.queryMax(l, n - 1)
                     - st.queryMin(l, n - 1);
@@ -91,14 +102,14 @@ class Solution {
 
             ans += val;
 
-            // Push next element from same sequence
+            // Push next value from the same sequence
             if (r > l) {
-                r--;
+                int nextR = r - 1;
 
-                long nextVal = (long) st.queryMax(l, r)
-                        - st.queryMin(l, r);
+                long nextVal = (long) st.queryMax(l, nextR)
+                        - st.queryMin(l, nextR);
 
-                pq.offer(new long[]{nextVal, l, r});
+                pq.offer(new long[]{nextVal, l, nextR});
             }
         }
 
