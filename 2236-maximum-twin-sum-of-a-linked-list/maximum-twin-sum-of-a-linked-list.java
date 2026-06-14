@@ -10,6 +10,43 @@
  */
 class Solution {
     public int pairSum(ListNode head) {
+        // Step 1: Find the middle of the linked list
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // Step 2: Reverse the second half of the list
+        ListNode prev = null;
+        ListNode curr = slow;
+        while (curr != null) {
+            ListNode nextNode = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextNode;
+        }
+        
+        // Step 3: Calculate the maximum twin sum
+        int max = 0;
+        ListNode firstHalf = head;
+        ListNode secondHalf = prev; // This is now the head of the reversed second half
+        
+        while (secondHalf != null) {
+            int sum = firstHalf.val + secondHalf.val;
+            max = Math.max(max, sum);
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+        
+        return max;
+    }
+}
+/*
+class Solution {
+    public int pairSum(ListNode head) {
         List<Integer> list = new ArrayList<>();
         ListNode curr=head;
         int n = 0;
@@ -27,6 +64,7 @@ class Solution {
         return max;
     }
 }
+*/
 
 /*
 Fast Size Retrieval:
