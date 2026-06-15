@@ -32,6 +32,9 @@ class Solution {
 }
 
 /*
+dummy-node approach is cleaner and is often preferred in linked list problems 
+because we don't need an extra prev pointer
+
 class Solution {
     public ListNode deleteMiddle(ListNode head) {
         if (head == null || head.next == null) {
