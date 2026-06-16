@@ -7,16 +7,16 @@ class Solution {
             if('a'<=c && c<='z'){
                 str.append(c);
             }
-            if(c=='*'){
+            else if(c=='*'){
                 if (str.length() > 0) {  
                     // otherwise length = 0 so 0-1=-1 StringIndexOutOfBoundsException
                     str.deleteCharAt(str.length() - 1);
                 }
             }
-            if(c=='#'){
+            else if(c=='#'){
                 str.append(str);
             }
-            if(c=='%'){
+            else {
                 str.reverse();
             }
         }
