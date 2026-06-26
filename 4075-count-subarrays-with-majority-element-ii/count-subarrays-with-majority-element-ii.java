@@ -1,66 +1,33 @@
-import java.util.*;
+/*
+ * 20260622
+ * 3737. Count Subarrays With Majority Element I is the medium version.
+ * I didn't spend time on this. I just read the Editorial.
+ * 
+ */
 
+// 20260622 Editorial solution
 class Solution {
-
-    class Fenwick {
-        int[] bit;
-
-        Fenwick(int n) {
-            bit = new int[n + 1];
-        }
-
-        void update(int idx, int val) {
-            while (idx < bit.length) {
-                bit[idx] += val;
-                idx += idx & -idx;
-            }
-        }
-
-        int query(int idx) {
-            int sum = 0;
-            while (idx > 0) {
-                sum += bit[idx];
-                idx -= idx & -idx;
-            }
-            return sum;
-        }
-    }
 
     public long countMajoritySubarrays(int[] nums, int target) {
         int n = nums.length;
-
-        // Step 1: Build prefix sums after transformation
-        int[] pref = new int[n + 1];
-        for (int i = 0; i < n; i++) {
-            pref[i + 1] = pref[i] + (nums[i] == target ? 1 : -1);
-        }
-
-        // Step 2: Coordinate compression
-        int[] sorted = pref.clone();
-        Arrays.sort(sorted);
-
-        Map<Integer, Integer> rank = new HashMap<>();
-        int idx = 1;
-        for (int x : sorted) {
-            if (!rank.containsKey(x)) {
-                rank.put(x, idx++);
-            }
-        }
-
-        // Step 3: Count pairs using Fenwick Tree
-        Fenwick bit = new Fenwick(rank.size());
+        // represents the occurrence count of prefix sums -n, -(n-1), ..., 0, 1, ..., n, with index offset by n.
+        int[] pre = new int[n * 2 + 1];
+        pre[n] = 1;
+        int cnt = n;
         long ans = 0;
-
-        for (int p : pref) {
-            int r = rank.get(p);
-
-            // Count previous prefix sums smaller than current
-            ans += bit.query(r - 1);
-
-            // Add current prefix sum
-            bit.update(r, 1);
+        long presum = 0;
+        for (int i = 0; i < n; ++i) {
+            if (nums[i] == target) {
+                presum += pre[cnt];
+                ++cnt;
+                ++pre[cnt];
+            } else {
+                --cnt;
+                presum -= pre[cnt];
+                ++pre[cnt];
+            }
+            ans += presum;
         }
-
         return ans;
     }
 }
