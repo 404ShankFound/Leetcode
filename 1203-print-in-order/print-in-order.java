@@ -1,3 +1,34 @@
+/*
+Mistake 1: Calling wait()/notifyAll() without synchronized
+----------------------------------------------------------
+Error:
+    IllegalMonitorStateException
+
+Reason:
+- wait(), notify(), and notifyAll() can only be called when the current thread
+  owns the monitor (lock) of the object.
+- A synchronized method/block acquires the object's monitor.
+- Since wait() is actually this.wait(), the thread must hold the lock on 'this'.
+
+Fix:
+- Declare the methods as synchronized (or use synchronized(this) { ... }).
+
+----------------------------------------------------------
+
+Mistake 2: Forgetting InterruptedException
+------------------------------------------
+Error:
+    Compilation error
+
+Reason:
+- wait() throws the checked exception InterruptedException.
+- Java forces us to either:
+    1. catch it using try-catch, or
+    2. declare 'throws InterruptedException'.
+
+Fix:
+- Added 'throws InterruptedException' to all methods.
+*/
 class Foo {
 
     int turn = 1;
