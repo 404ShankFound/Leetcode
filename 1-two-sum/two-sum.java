@@ -1,3 +1,4 @@
+// O(n) Time complexity but Space complexity is also O(n) 
 class Solution {
     public int[] twoSum(int[] nums, int target) {
         int complement=0;
