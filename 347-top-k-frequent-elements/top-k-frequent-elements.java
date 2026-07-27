@@ -6,12 +6,11 @@ class Solution {
         int count = 0;
         Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         for (int i = 0; i < nums.length; i++) {
-            
+
             if (map.containsKey(nums[i])) {
-                count = map.get(nums[i])+1;
+                count = map.get(nums[i]) + 1;
                 map.put(nums[i], count);
-            }
-            else{
+            } else {
                 map.putIfAbsent(nums[i], 1);
             }
         }
