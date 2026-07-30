@@ -14,6 +14,37 @@
  * }
  */
 
+// OPTIMAL:
+class Solution {
+
+    int maxDepth(TreeNode root) {
+
+        if (root == null) {
+            return 0;
+        }
+
+        int lh = maxDepth(root.left);
+        int rh = maxDepth(root.right);
+
+        // If left or right subtree is unbalanced
+        if (lh == -1 || rh == -1) {
+            return -1;
+        }
+
+        // If current node is unbalanced
+        if (Math.abs(lh - rh) > 1) {
+            return -1;
+        }
+
+        // Return height
+        return 1 + Math.max(lh, rh);
+    }
+
+    public boolean isBalanced(TreeNode root) {
+        return maxDepth(root) != -1;
+    }
+}
+/*
 class Solution {
 
     public int maxDepth(TreeNode root) {
@@ -39,3 +70,4 @@ class Solution {
         return isBalanced(root.left) && isBalanced(root.right);
     }
 }
+*/
