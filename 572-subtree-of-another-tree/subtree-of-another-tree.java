@@ -17,28 +17,25 @@ class Solution {
 
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
 
-        StringBuilder rootTree = new StringBuilder();
-        StringBuilder subTree = new StringBuilder();
+        if (root == null)
+            return false;
 
-        serialize(root, rootTree);
-        serialize(subRoot, subTree);
+        if (isIdentical(root, subRoot))
+            return true;
 
-        return rootTree.toString().contains(subTree.toString());
+        return isSubtree(root.left, subRoot) ||
+               isSubtree(root.right, subRoot);
     }
 
-    // Preorder serialization with null markers
-    private void serialize(TreeNode root, StringBuilder sb) {
+    private boolean isIdentical(TreeNode s, TreeNode t) {
 
-        // Null node
-        if (root == null) {
-            sb.append(",#");
-            return;
-        }
+        if (s == null && t == null)
+            return true;
 
-        // Add delimiter before every value
-        sb.append(",").append(root.val);
+        if (s == null || t == null || s.val != t.val)
+            return false;
 
-        serialize(root.left, sb);
-        serialize(root.right, sb);
+        return isIdentical(s.left, t.left) &&
+               isIdentical(s.right, t.right);
     }
 }
