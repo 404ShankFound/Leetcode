@@ -1,13 +1,25 @@
 class Solution {
     public int reverseBits(int n) {
-        int ans=0;
+        int ans = 0;
+
         for (int i = 0; i < 32; i++) {
-            ans = ans | ((n << (31 - i)) & (1 << (31 - i)));
-            n=n>>>1;
+            ans = (ans << 1) | (n & 1);
+            n >>>= 1;
         }
+
         return ans;
     }
 }
+// class Solution {
+//     public int reverseBits(int n) {
+//         int ans=0;
+//         for (int i = 0; i < 32; i++) {
+//             ans = ans | ((n << (31 - i)) & (1 << (31 - i)));
+//             n=n>>>1;
+//         }
+//         return ans;
+//     }
+// }
 
 /*
 >> preserves the sign bit.
