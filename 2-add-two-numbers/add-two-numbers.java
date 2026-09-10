@@ -5,6 +5,12 @@ class Solution {
         int carry = 0;
 
         while (l1 != null || l2 != null || carry != 0) {
+
+            //carry!=0 
+
+            //If nothing is there to add i.e. both the numbers have ended but we still have carry
+            //We must not miss that therefore, carry!=0
+            
             int sum = carry;
 
             if (l1 != null) {
@@ -20,8 +26,9 @@ class Solution {
             curr.next = new ListNode(sum % 10);
             curr = curr.next;
             carry = sum / 10;
-        }
 
+            //If in this iteration both LL were null and only carry was there, then carry = (single_digit)/10 = 0 so for next iteration, carry = 0 so then while loop ends
+        }
         return head.next;
     }
 }
