@@ -1,10 +1,11 @@
+/*
 public class Solution {
     public ListNode detectCycle(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
 
-        while(fast != null && fast.next != null){
-            slow = slow.next;
+        while(fast != null && fast.next != null){ // for straight chained list
+            slow = slow.next;  
             fast = fast.next.next;
 
             if(slow == fast){
@@ -12,7 +13,7 @@ public class Solution {
             }
         }
 
-        if(fast == null || fast.next == null){
+        if(fast == null || fast.next == null){  // for straight chained list
             return null;
         }
 
@@ -23,6 +24,22 @@ public class Solution {
             fast = fast.next;
         }
 
-        return fast;
+        return fast;  // equivalent to return slow;
     }
 }
+*/
+public class Solution {
+public ListNode detectCycle(ListNode head) {
+    HashSet<ListNode> set = new HashSet<>();
+
+    while(head != null){
+        if(set.contains(head)){
+            return head;
+        }
+
+        set.add(head);
+        head = head.next;
+    }
+
+    return null;
+}}
