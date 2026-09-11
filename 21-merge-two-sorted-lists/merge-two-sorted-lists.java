@@ -9,6 +9,7 @@
 //  * }
 //  */
 
+//SPACE OPTIMISED APPROACH: O(1) SPACE AND O(n+m) time complexity
 class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         ListNode head = new ListNode(0);
@@ -35,7 +36,8 @@ class Solution {
     }
 }
 
-// class Solution {
+// O(n+m) SPACE AND O(n+m) time complexity
+//class Solution {
 //     public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
 //         ListNode head = new ListNode(0);
 //         ListNode curr = head;
