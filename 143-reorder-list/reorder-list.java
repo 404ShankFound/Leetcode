@@ -13,7 +13,7 @@ class Solution {
         }
 
         ListNode second = slow.next;
-        slow.next = null;
+        slow.next = null;             //MOST-IMPORTANT
 
         ListNode prev = null;
 
