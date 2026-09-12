@@ -40,6 +40,53 @@ class Solution {
         }
     }
 }
+
+/*
+IMPORTANT: slow.next = null is used to BREAK the original list into 2 halves.
+
+Example:
+Original list:
+1 -> 2 -> 3 -> 4 -> 5 -> null
+          ^
+         slow
+
+ListNode second = slow.next;
+Now:
+First:  1 -> 2 -> 3 -> 4 -> 5
+                  ^
+                 slow
+Second: 4 -> 5
+
+But the two halves are STILL connected:
+1 -> 2 -> 3 -> 4 -> 5
+
+So we do:
+slow.next = null;
+
+Now:
+First:  1 -> 2 -> 3 -> null
+Second: 4 -> 5 -> null
+
+Then reverse second:
+Second: 5 -> 4 -> null
+
+Finally merge:
+1 -> 5 -> 2 -> 4 -> 3 -> null
+
+If slow.next = null is removed, the first half still points
+to the second half. After reversing the second half, existing
+links can point backward and create a cycle.
+
+IMPORTANT:
+slow.next = null does NOT make the variable slow null.
+It changes the next pointer of the NODE that slow points to.
+
+So:
+slow.next = null;
+means "break the link after the middle node."
+*/
+
+
 // class Solution {
 //     private ListNode rev(ListNode head) {
 //         ListNode prev = null;
