@@ -9,11 +9,25 @@
  * }
  */
 class Solution {
-    private ListNode reverse(ListNode head){
+    public int getDecimalValue(ListNode head) {
+        int num = 0;
+
+        while(head != null){
+            num = (num << 1) | head.val;
+            head = head.next;
+        }
+
+        return num;
+    }
+}
+
+/*
+class Solution {
+    private ListNode reverse(ListNode head) {
         ListNode prev = null;
         ListNode curr = head;
         ListNode next;
-        while(curr!=null){
+        while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -21,13 +35,14 @@ class Solution {
         }
         return prev;
     }
+
     public int getDecimalValue(ListNode head) {
         ListNode curr = reverse(head);
-        int num=0;
-        int exp=0;
-        while(curr!=null){
-            if(curr.val==1){
-            num += Math.pow(2,exp);
+        int num = 0;
+        int exp = 0;
+        while (curr != null) {
+            if (curr.val == 1) {
+                num += Math.pow(2, exp);
             }
             exp++;
             curr = curr.next;
@@ -35,3 +50,17 @@ class Solution {
         return num;
     }
 }
+
+class Solution {
+    public int getDecimalValue(ListNode head) {
+        int num = 0;
+
+        while(head != null){
+            num = num * 2 + head.val;
+            head = head.next;
+        }
+
+        return num;
+    }
+}
+*/
