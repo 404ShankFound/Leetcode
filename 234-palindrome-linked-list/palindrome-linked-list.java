@@ -9,11 +9,7 @@
  * }
  */
 class Solution {
-    static{
-        ListNode n = new ListNode(0);
-        for(int i=0;i<500;i++)
-            isPalindrome(n);
-    }
+
     public static boolean isPalindrome(ListNode head) {
        
         ListNode slow = head;
